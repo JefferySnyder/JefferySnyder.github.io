@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+<h1 align="center">{% block header %}Posts{% endblock %}</h1>
+{% block footer %}
+<div align="right">
+    <a href="/create-post"><button type="button" class="btn btn-success btn-lg">Create a Post</button></a>
+</div>
+{% endblock %}
+<br/> 
+<div id="posts">
+    {% for post in posts|reverse %}
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <h2>{{post.title}}</h3>
+                    {% if user.id == post.author %}
+                    <div class="btn-group align-self-start">
+                        <a href="/edit-post/{{post.id}}" class="btn btn-outline-secondary btn-sm">Edit</a>
+                        <a href="/delete-post/{{post.id}}" class="btn btn-outline-danger btn-sm">Delete</a>
+                    </div>
+                    {% endif %}
+                </div>
+                <ul style="list-style-type: none; font-size: small;">
+                    <li>By: <a href="/profile/{{post.user.username}}">{{post.user.username}}</a></li>
+                    <li>{{post.date_created}}</li>
+                </ul>
+                <pre style="font-size: large; font-family: Helvetica, Arial, sans-serif; white-space: break-spaces;">{{post.text}}</pre>
+                
+                <div class="collapse" id="comments-{{post.id}}">
+                    <div class="card">
+                        <div class="card-body" id="comments-expanded-{{post.id}}">
+                            {% for comment in post.comments %}
+                            <div class="d-flex justify-content-between align-items-center" style="font-size: smaller;">
+                                <div>
+                                    <a href="/profile/{{comment.user.username}}">{{comment.user.username}}</a>: {{comment.text}}
+                                </div>
+                                <div>
+                                    <small class="text-muted">{{comment.date_created}}</small>
+                                    {% if user.id == comment.author or user.id == post.author %}
+                                    <div class="btn-group">
+                                        <a href="/delete-comment/{{comment.id}}" class="btn btn-outline-danger btn-sm">Delete</a>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <p class="card-text">
+                    {% if post.comments|length > 0 %}
+                    <a data-bs-toggle="collapse" href="#comments-{{post.id}}" role="button">
+                        <small>View {{post.comments|length}} Comments</small>
+                    </a>
+                    {% else %}
+                    <small class="text-muted">No Comments</small>
+                    {% endif %}
+                </p>
+                <form class="input-group input-group-sm" method='POST' action="/create-comment/{{post.id}}">
+                    <input type="text" id="text" name="text" class="form-control" placeholder="Comment something!" />
+                    <button type="submit" class="btn btn-outline-secondary">Comment</button>
+                </form>
+            </div>
+        </div>
+        <br/><br/>
+    {% endfor %}
+</div>
+
+{% endblock %}

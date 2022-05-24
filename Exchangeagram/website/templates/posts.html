@@ -1,0 +1,8 @@
+{% extends "posts_div.html" %}
+{% block title %}{{username}}'s Posts{% endblock %}
+{% block header %}{{username}}'s Posts{% endblock %}
+{% block footer %}
+<div align="right">
+    <a href="/profile/{{username}}"><button type="button" class="btn btn-secondary btn-lg">Back</button></a>
+</div>
+{% endblock %}

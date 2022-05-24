@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}{{username}}'s Profile{% endblock %}
+{% block header %}{{username}}'s Profile{% endblock %}
+{% block content %}
+<h1 align="center">{{username}}'s Profile</h1><br/>
+<div class="card">
+    <div class="card-header">
+      User Dashboard
+    </div>
+    <div class="card-body">
+        {% if current_user.id == user.id %}
+        <p class="card-title" style="font-size: x-large;">Welcome To Your User Account!</p>
+        {% else %}
+        <p class="card-title" style="font-size: large;">Welcome To {{username}}'s Account!</p>
+        {% endif %}
+        <ul style="list-style-type: none; margin: 2em 0 3em;">
+            <li class="card-text"><strong>Username:</strong> {{username}}</li>
+            <li class="card-text"><strong>Email:</strong> {{email}}</li>
+            <li class="card-text"><strong>Member Since:</strong> {{date_created}}</li>
+        </ul>
+        <a href="/posts/{{username}}" class="btn btn-secondary btn-sm">View Posts</a>
+        {% if current_user.id == user.id %}
+        <a href="/logout" class="btn btn-secondary btn-sm">Logout</a>
+        <a href="/delete-user/{{user.id}}" class="btn btn-danger btn-sm">Delete Account</a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
