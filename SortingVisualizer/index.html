@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Sorting Project, baby!!</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body onload="render()">
+        <header>
+            <div id="headerflex">
+                <h1>Sorting Algorithm Visualizer</h1>
+                <input type="range" min="1" max="3" value="2" id="slider">
+                <span id="speed"></span>
+            </div>
+
+            <div id="inputs">
+                <div id="button-el">
+                    <button id="generate-btn">Generate Nums</button>
+                    <button id="bubble-btn">Bubble Sort</button>
+                    <button id="insert-btn">Insertion Sort</button>
+                    <button id="merge-btn">Merge Sort</button>
+                    <button id="quicksort-btn">QuickSort</button>
+                </div>
+                    <input type="range" min="1" max="3" value="2" id="slider2">
+                    <span id="size"></span>
+            </div>
+            
+        </header>
+
+        <main>
+            <div id="chart-el"></div>
+        </main>
+
+        <script src="app.js"></script>
+    </body>
+</html>
